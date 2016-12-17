@@ -105,7 +105,15 @@
      <Compile Include="Assets\Paraphernalia\Utils\Triangulator.cs" />
      <Compile Include="Assets\Paraphernalia\YieldInstructions\WaitForRealSeconds.cs" />
      <Compile Include="Assets\Paraphernalia\YieldInstructions\WaitUntil.cs" />
+     <Compile Include="Assets\Scripts\BulletController.cs" />
+     <Compile Include="Assets\Scripts\DisableObject.cs" />
+     <Compile Include="Assets\Scripts\EnemySpawner.cs" />
+     <Compile Include="Assets\Scripts\Explode.cs" />
+     <Compile Include="Assets\Scripts\MeleeEnemyController.cs" />
      <Compile Include="Assets\Scripts\PlayerMovement.cs" />
+     <Compile Include="Assets\Scripts\ScoreManager.cs" />
+     <Compile Include="Assets\Scripts\ShootingEnemyController.cs" />
+     <Compile Include="Assets\Scripts\StartMenu.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

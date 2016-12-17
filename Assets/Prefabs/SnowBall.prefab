@@ -23,7 +23,8 @@ GameObject:
   - 61: {fileID: 61000013409832534}
   - 50: {fileID: 50000011498124022}
   - 114: {fileID: 114000013919592860}
-  m_Layer: 0
+  - 114: {fileID: 114000012710993882}
+  m_Layer: 10
   m_Name: SnowBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010862506578}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.009319569, y: 0.89001966, z: 0}
+  m_LocalPosition: {x: 1.207, y: 0.89001966, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -54,7 +55,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -74,6 +75,21 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 0.9, y: 0.92}
+--- !u!114 &114000012710993882
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010862506578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 101ae274168be4981a4abf1df610a69d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1
+  multiplier: 1
+  disableOnCollision: 0
+  affectAncestor: 0
 --- !u!114 &114000013919592860
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -85,7 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c45a35227714c426da8ee187ffac9b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 10
   lifetime: 3
   size: 1
   orientToVelocity: 1
@@ -94,7 +110,7 @@ MonoBehaviour:
   particles: {fileID: 0}
   onFireAudioClipName: 
   onHitAudioClipName: 
-  shakeCamera: 1
+  shakeCamera: 0
   onHitParticleSystemName: 
   onHitColor: {r: 1, g: 1, b: 1, a: 1}
   target: {fileID: 0}
