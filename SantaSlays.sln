@@ -1,14 +1,24 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2008
 
-
+Project("{6337D833-5315-6827-BFEE-DEBB6502D362}") = "SantaSlays", "Assembly-CSharp.csproj", "{BF31B56F-B687-368F-46A0-D4C3A13F93AD}"
+EndProject
+Project("{6337D833-5315-6827-BFEE-DEBB6502D362}") = "SantaSlays", "Assembly-CSharp-Editor.csproj", "{5A3E641A-6C43-1E57-1DEA-D8895DC7315E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-
+		{BF31B56F-B687-368F-46A0-D4C3A13F93AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF31B56F-B687-368F-46A0-D4C3A13F93AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF31B56F-B687-368F-46A0-D4C3A13F93AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF31B56F-B687-368F-46A0-D4C3A13F93AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A3E641A-6C43-1E57-1DEA-D8895DC7315E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A3E641A-6C43-1E57-1DEA-D8895DC7315E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A3E641A-6C43-1E57-1DEA-D8895DC7315E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A3E641A-6C43-1E57-1DEA-D8895DC7315E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
