@@ -23,6 +23,7 @@ GameObject:
   - 50: {fileID: 50000012014501144}
   - 114: {fileID: 114000011389125554}
   - 114: {fileID: 114000012265197314}
+  - 61: {fileID: 61000010011732952}
   m_Layer: 10
   m_Name: Temp_17
   m_TagString: Untagged
@@ -60,6 +61,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!61 &61000010011732952
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011627317428}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 0.9, y: 0.89}
 --- !u!114 &114000011389125554
 MonoBehaviour:
   m_ObjectHideFlags: 1

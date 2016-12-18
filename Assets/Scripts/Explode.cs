@@ -10,11 +10,10 @@ public class Explode : MonoBehaviour {
 
     private List<Projectile> shardPool = new List<Projectile>();
 
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
         for(int i = 0; i < numberOfShardsToSpawn; i++)
         {
-            Debug.Log("here");
             Shoot();
         }
     }

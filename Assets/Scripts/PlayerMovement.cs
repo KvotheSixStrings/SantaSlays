@@ -28,7 +28,6 @@ public class PlayerMovement : MonoBehaviour {
 
         if(Input.GetButton("Fire1"))
         {
-            Debug.Log("button press");
             foreach(ProjectileLauncher gun in guns)
             {
                 if(gun.gameObject.activeSelf)

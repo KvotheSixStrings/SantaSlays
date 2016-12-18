@@ -3,14 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class EnemySpawner : MonoBehaviour {
-    public int maxSpawn = 100;
-    public int spawnCount = 5;
+    public int maxSpawn = 8;
+    public int spawnCount = 2;
     
-    public float spawnInterval = 1;
-    public GameObject enemyPrefab;
+    public float spawnInterval = 2;
+    public GameObject[] enemyPrefabs;
     public Transform[] spawnPoints;
 
-    private List<GameObject> spawnedEnemies = new List<GameObject>();
+    private List<GameObject> spawnedShootingEnemies = new List<GameObject>();
+    private List<GameObject> spawnedMeleeEnemies = new List<GameObject>();
 
     void OnEnable()
     {
@@ -26,55 +27,80 @@ public class EnemySpawner : MonoBehaviour {
 
     IEnumerator SpawnCoroutine()
     {
-        while (enabled)
+        for(int i = 0; i < int.MaxValue; i++)
         {
-            int activeCount = spawnedEnemies.FindAll(IsActiveEnemy).Count;
-            if (activeCount < maxSpawn)
+            for(int j = 0; j < maxSpawn; j++)
             {
-                Spawn(Mathf.Min(spawnCount, maxSpawn - activeCount), transform.position);
+                int rng = Random.Range(0, 2);
+                if(rng == 0)
+                {
+                    Spawn(1);
+                }
             }
             yield return new WaitForSeconds(spawnInterval);
         }
     }
 
-    void Spawn(int num, Vector3 pos)
+    void Spawn(int num)
     {
-        List<GameObject> enemies = spawnedEnemies.FindAll(IsInactiveEnemy);
+        List<GameObject> shootingEnemies = spawnedShootingEnemies.FindAll(IsInactiveShootingEnemy);
+        List<GameObject> meleeEnemies = spawnedMeleeEnemies.FindAll(IsInactiveMeleeEnemy);
         for (int i = 0; i < num; i++)
         {
+            int enemyIndex = Random.Range(0, enemyPrefabs.Length);
+            int spawnloc = Random.Range(0, spawnPoints.Length);
             GameObject enemy = null;
-            if (i >= enemies.Count)
+            if(enemyIndex == 0)
             {
-                enemy = Object.Instantiate(enemyPrefab) as GameObject;
-                enemy.transform.parent = transform;
-                spawnedEnemies.Add(enemy);
+                if (i >= shootingEnemies.Count)
+                {
+                    enemy = Object.Instantiate(enemyPrefabs[enemyIndex]) as GameObject;
+                    enemy.transform.parent = transform;
+                    spawnedShootingEnemies.Add(enemy);
+                }
+                else
+                {
+                    enemy = shootingEnemies[i];
+                    enemy.SetActive(true);
+                }
             }
-            else
+            else if(enemyIndex == 1)
             {
-                enemy = enemies[i];
-                enemy.SetActive(true);
+                if (i >= meleeEnemies.Count)
+                {
+                    enemy = Object.Instantiate(enemyPrefabs[enemyIndex]) as GameObject;
+                    enemy.transform.parent = transform;
+                    spawnedMeleeEnemies.Add(enemy);
+                }
+                else
+                {
+                    enemy = meleeEnemies[i];
+                    enemy.SetActive(true);
+                }
             }
+            enemy.transform.position = spawnPoints[spawnloc].position;
 
-            enemy.transform.position = pos + (Vector3)Random.insideUnitCircle * 7;
         }
     }
 
-    bool IsActiveEnemy(GameObject enemy)
+    bool IsActiveShootingEnemy(GameObject enemy)
     {
         return enemy.activeSelf;
     }
 
-    bool IsInactiveEnemy(GameObject enemy)
+    bool IsInactiveShootingEnemy(GameObject enemy)
     {
         return !enemy.activeSelf;
     }
 
-    public void Reset()
+    bool IsActiveMeleeEnemy(GameObject enemy)
     {
-        foreach (GameObject enemy in spawnedEnemies)
-        {
-            enemy.SetActive(false);
-        }
-        gameObject.SetActive(true);
+        return enemy.activeSelf;
     }
+
+    bool IsInactiveMeleeEnemy(GameObject enemy)
+    {
+        return !enemy.activeSelf;
+    }
+    
 }

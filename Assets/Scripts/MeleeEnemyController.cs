@@ -15,6 +15,12 @@ public class MeleeEnemyController : MonoBehaviour {
         player = GameObject.FindWithTag("Player");
         body = GetComponent<Rigidbody2D>();  
     }
+
+    void OnEnable()
+    {
+        canCharge = false;
+    }
+
     void Update()
     {
         if (!canCharge)

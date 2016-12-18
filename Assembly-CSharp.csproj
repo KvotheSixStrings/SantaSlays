@@ -109,6 +109,7 @@
      <Compile Include="Assets\Scripts\DisableObject.cs" />
      <Compile Include="Assets\Scripts\EnemySpawner.cs" />
      <Compile Include="Assets\Scripts\Explode.cs" />
+     <Compile Include="Assets\Scripts\Health.cs" />
      <Compile Include="Assets\Scripts\MeleeEnemyController.cs" />
      <Compile Include="Assets\Scripts\MuzzleFlash.cs" />
      <Compile Include="Assets\Scripts\PlayerMovement.cs" />

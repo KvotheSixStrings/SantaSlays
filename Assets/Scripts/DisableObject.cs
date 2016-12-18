@@ -3,12 +3,20 @@ using System.Collections;
 
 public class DisableObject : MonoBehaviour {
 
+    private Camera cam;
+
+    void Start()
+    {
+        cam = GameObject.FindObjectOfType<Camera>();
+    }
+
     void Update()
     {
-        if (transform.position.y < -1f)
+        Vector3 viewPos = cam.WorldToViewportPoint(transform.position);
+        if(viewPos.x < 0)
         {
             gameObject.SetActive(false);
-        }       
+        }
     }
    
 }
