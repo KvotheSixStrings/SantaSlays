@@ -1,14 +1,17 @@
 CheckSheet
-Player movement
-player shooting
+Player movement-
+player shooting-
 enemy spawn
-enemy targeting
-enemy movement
-enemy shooting
+enemy targeting-
+enemy movement-
+enemy shooting-
 spawn power ups
-power up controller
-types of power ups 
-snowball, candy cane, red nose shield, ordiment granade
+power up controller - 
+types of power ups -
+snowball, candy cane, red nose shield, ordiment granade-
 score
 boss fight
 level movement
+game loop 
+present movement
+
