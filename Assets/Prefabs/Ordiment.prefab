@@ -31,7 +31,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4000012851868130
 Transform:
   m_ObjectHideFlags: 1
@@ -40,7 +40,7 @@ Transform:
   m_GameObject: {fileID: 1000013251441256}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.24, y: -0.31, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
@@ -75,7 +75,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 0.86, y: 0.9}
+  m_Size: {x: 0.86, y: 1.02}
 --- !u!114 &114000010509912532
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -88,9 +88,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shards:
-  - {fileID: 114000010902832294, guid: 9f849684dc5bc724eb9b3a81a7d8ed96, type: 2}
-  - {fileID: 114000012625980264, guid: 43d5fa25275b34648b05f389edd8ae7c, type: 2}
-  - {fileID: 114000011389125554, guid: 4ab65b7c57da2e440a2f01bc1ed992b1, type: 2}
+  - {fileID: 114000012175870180, guid: a633c64de64443d459031106786d86ab, type: 2}
+  - {fileID: 114000014071925626, guid: 4bd94e3866d1fa047a0419500d9c8270, type: 2}
+  - {fileID: 114000010332533244, guid: 15739cbf2b9fbc142bf3a878a1da99dd, type: 2}
+  - {fileID: 114000011836151936, guid: 955770805c783c1408c390c62d1a9a37, type: 2}
+  - {fileID: 114000012081309918, guid: c54a7868cb238714ab9bc13c2c0da19a, type: 2}
+  - {fileID: 114000012876287258, guid: 0c283949d5f958144aa2a8bf5aeafaa6, type: 2}
+  - {fileID: 114000011205613842, guid: 2ebc2d6db6f73c94cb406f90b833f734, type: 2}
+  - {fileID: 114000012453632878, guid: 89d3e071d1051e84aa4f9448f23544d0, type: 2}
+  - {fileID: 114000012949364632, guid: c9cfbf268c49fc34889d79ae254e6b8f, type: 2}
+  - {fileID: 114000011027733684, guid: 7b8e5a270e4418b449f0742fec016546, type: 2}
+  - {fileID: 114000012178002992, guid: f85e5ab489202c54bbc061c90dad21f0, type: 2}
   numberOfShardsToSpawn: 8
 --- !u!114 &114000010762054786
 MonoBehaviour:
@@ -103,15 +111,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c45a35227714c426da8ee187ffac9b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
-  lifetime: 3
+  speed: 13
+  lifetime: 6
   size: 1
   orientToVelocity: 1
   pursuitDamping: 0.1
   gunVelocityDamping: 0.1
   particles: {fileID: 0}
-  onFireAudioClipName: 
-  onHitAudioClipName: 
+  audioMixerName: SFX
+  onFireAudioClipName: Throw-Swoosh
+  onHitAudioClipName: Ornament-Break
   shakeCamera: 0
   onHitParticleSystemName: 
   onHitColor: {r: 1, g: 1, b: 1, a: 1}
@@ -160,7 +169,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300006, guid: 4be3de8a76b127445af885db87dc5142, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4885ff17f9ab6a446a176f67022c7106, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

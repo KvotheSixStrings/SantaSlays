@@ -9,11 +9,13 @@ public class PlayerMovement : MonoBehaviour {
     public ProjectileLauncher[] guns;
     public GameObject shield;
 	private Camera cam;
+    private Health health;
 
 	void Start()
 	{
         cam = GameObject.FindObjectOfType<Camera>();
         shield.SetActive(false);
+        health = GetComponent<Health>();
 	}
 
     void Update() {
@@ -38,32 +40,44 @@ public class PlayerMovement : MonoBehaviour {
         }
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.tag == "CandyCane")
         {
-            foreach(ProjectileLauncher gun in guns)
-            {
-                gun.gameObject.SetActive(false);
-            }
-            guns[1].gameObject.SetActive(true);
-        }
-        if (collision.gameObject.tag == "Ordiment")
-        {
+            AudioManager.PlayVariedEffect("PowerUp");
             foreach (ProjectileLauncher gun in guns)
             {
                 gun.gameObject.SetActive(false);
+                if(gun.gunName == "CandyCane")
+                {
+                    gun.gameObject.SetActive(true);
+                }
             }
-            guns[2].gameObject.SetActive(true);
+            
+        }
+        if (collision.gameObject.tag == "Ordiment")
+        {
+            AudioManager.PlayVariedEffect("PowerUp");
+            foreach (ProjectileLauncher gun in guns)
+            {
+                gun.gameObject.SetActive(false);
+                if (gun.gunName == "Ordiment")
+                {
+                    gun.gameObject.SetActive(true);
+                }
+            }
         }
         if (collision.gameObject.tag == "Shield")
         {
+            AudioManager.PlayVariedEffect("PowerUp");
             shield.SetActive(true);
+            health.hasShield = true;
         }
         if (collision.gameObject.tag == "Enemy")
         {
-            if(shield.activeSelf)
+            if(shield.activeSelf == true)
             {
+                health.hasShield = false;
                 shield.SetActive(false);
             }
             else
@@ -77,8 +91,9 @@ public class PlayerMovement : MonoBehaviour {
         }
         if (collision.gameObject.tag == "EnemyProjectile")
         {
-            if (shield.activeSelf)
+            if (shield.activeSelf == true)
             {
+                health.hasShield = false;
                 shield.SetActive(false);
             }
             else
@@ -90,7 +105,10 @@ public class PlayerMovement : MonoBehaviour {
                 guns[0].gameObject.SetActive(true);
             }
         }
-        collision.gameObject.SetActive(false);
+        if(collision.gameObject.tag != "Terrain")
+        {
+            collision.gameObject.SetActive(false);
+        }
 
     }
 }

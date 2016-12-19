@@ -25,7 +25,7 @@ public class Spawner : MonoBehaviour {
 		}
 	}
 
-	public static GameObject Spawn(string name, bool activeByDefault = true) {
+	public static GameObject Spawn(string name) {
 		if (instance == null || 
 			string.IsNullOrEmpty(name) ||
 			!instance.poolsDict.ContainsKey(name) ||
@@ -40,7 +40,7 @@ public class Spawner : MonoBehaviour {
 			g = instance.prefabsDict[name].Instantiate() as GameObject;
 		}
 		
-		g.SetActive(activeByDefault);
+		g.SetActive(true);
 		
 		return g;
 	}

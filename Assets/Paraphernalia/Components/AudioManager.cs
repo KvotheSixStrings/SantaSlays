@@ -17,6 +17,7 @@ DEALINGS IN THE SOFTWARE.
 */
 
 using UnityEngine;
+using UnityEngine.Audio;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -26,13 +27,14 @@ public class AudioManager : MonoBehaviour {
 	public AudioClip music;
 	public bool autoStartMusic = true;
 	public List<AudioClip> clips = new List<AudioClip>();
+	public List<AudioMixerGroup> mixers = new List<AudioMixerGroup>();
+	public AudioMixerGroup musicMixer;
+	public AudioMixerGroup defaultSFXMixer;
 
-	[Range(0,2)] public float sfxVolume = 1;
 	[Range(0,10)] public int sfxSourcesCount = 5;
 	private int currentSFXSource = 0;
 	private AudioSource[] sfxSources;
 
-	[Range(0,2)] public float musicVolume = 1;
 	private int currentMusicSource = 0;
 	private AudioSource[] musicSources;
 
@@ -47,6 +49,12 @@ public class AudioManager : MonoBehaviour {
 				_instance = audioMan.AddComponent<AudioManager>();
 			}
 			return _instance;
+		}
+	}
+
+	public static AudioSource currentSource {
+		get {
+			return instance.musicSources[instance.currentMusicSource];
 		}
 	}
 
@@ -70,19 +78,22 @@ public class AudioManager : MonoBehaviour {
 	void CreateSFXPool () {
 		sfxSources = new AudioSource[sfxSourcesCount];
 		for (int i = 0; i < sfxSourcesCount; i++) {
-			GameObject sfxSource = new GameObject("SFXSource." + i);
-			sfxSource.transform.parent = transform;
-			sfxSources[i] = sfxSource.AddComponent<AudioSource>();
+			GameObject go = new GameObject("SFXSource." + i);
+			go.transform.parent = transform;
+			AudioSource sfxSource = go.AddComponent<AudioSource>();
+			sfxSources[i] = sfxSource;
 		}
 	}
 
 	void CreateMusicPool () {
 		musicSources = new AudioSource[2];
 		for (int i = 0; i < 2; i++) {
-			GameObject musicSource = new GameObject("MusicSource." + i);
-			musicSource.transform.parent = transform;
-			musicSources[i] = musicSource.AddComponent<AudioSource>();
-			musicSources[i].loop = true;
+			GameObject go = new GameObject("MusicSource." + i);
+			go.transform.parent = transform;
+			AudioSource musicSource = go.AddComponent<AudioSource>();
+			musicSource.loop = true;
+			musicSource.outputAudioMixerGroup = musicMixer;
+			musicSources[i] = musicSource;
 		}
 	}
 
@@ -93,10 +104,26 @@ public class AudioManager : MonoBehaviour {
 	public static void PlayEffect(string name, Transform t = null, float volume = 1, float pitch = 1) {
 		if (string.IsNullOrEmpty(name)) return;
 		AudioClip clip = instance.clips.Find(c => c.name == name);
-		if (clip != null) PlayEffect(clip, t, volume, pitch);
+		PlayEffect(clip, t, volume, pitch);
 	}
 
 	public static void PlayEffect(AudioClip clip, Transform t = null, float volume = 1, float pitch = 1) {
+		PlayEffect(clip, instance.defaultSFXMixer, t, volume, pitch);
+	}
+
+	public static void PlayEffect(string name, string mixerName, Transform t = null, float volume = 1, float pitch = 1, float pan = 0, float spatialBlend = 0, float minDist = 1, float maxDist = 100) {
+		if (string.IsNullOrEmpty(name)) return;
+		AudioClip clip = instance.clips.Find(c => c.name == name);
+		AudioMixerGroup mixer = instance.mixers.Find(m => m.name == mixerName);
+		if (mixer == null) mixer = instance.defaultSFXMixer;
+		PlayEffect(clip, mixer, t, volume, pitch);
+	}
+
+	public static void PlayEffect(AudioClip clip, AudioMixerGroup mixer = null, Transform t = null, float volume = 1, float pitch = 1, float pan = 0, float spatialBlend = 0, float minDist = 1, float maxDist = 100) {
+		#if UNITY_EDITOR
+		if (!Application.isPlaying) return;
+		#endif
+		if (clip == null) return;
 		int id = clip.GetInstanceID();
 		if (instance.lastPlayed.ContainsKey(id) && 
 			Time.time - instance.lastPlayed[id] < instance.minPlayInterval) {
@@ -107,16 +134,22 @@ public class AudioManager : MonoBehaviour {
 		if (t != null) source.gameObject.transform.position = t.position;
 		source.pitch = pitch;
 		source.clip = clip;
-		source.volume = volume * instance.sfxVolume;
+		source.volume = volume;
+		source.spatialBlend = spatialBlend;
+		source.panStereo = pan;
+		source.minDistance = minDist;
+		source.maxDistance = maxDist;
+		source.outputAudioMixerGroup = mixer;
+		source.spatialBlend = spatialBlend;
+		source.minDistance = minDist;
+		source.maxDistance = maxDist;
 		source.Play();
 		instance.currentSFXSource = (instance.currentSFXSource + 1) % instance.sfxSourcesCount;
 	}
 
 	public static void PlayMusic (AudioClip clip) {
-		AudioSource currentSource = instance.musicSources[instance.currentMusicSource];
 		if (currentSource.clip == clip) return;
 		currentSource.clip = clip;
-		currentSource.volume = instance.musicVolume;
 		currentSource.Play();
 	}
 
@@ -125,22 +158,19 @@ public class AudioManager : MonoBehaviour {
 	}
 
 	public static void PauseMusic () {
-		AudioSource currentSource = instance.musicSources[instance.currentMusicSource];
 		if (currentSource != null) currentSource.Pause();
 	}
 
 	public static void ResumeMusic () {
-		AudioSource currentSource = instance.musicSources[instance.currentMusicSource];
 		if (currentSource != null) currentSource.UnPause();
 	}
 
 	public static void StopMusic () {
-		AudioSource currentSource = instance.musicSources[instance.currentMusicSource];
 		if (currentSource != null) currentSource.Stop();
 	}
 
 	public static void CrossfadeMusic(AudioClip clip, float fadeDuration) {
-		AudioSource currentSource = instance.musicSources[instance.currentMusicSource];
+		if (clip == null || instance.musicSources == null) return;
 		AudioSource nextSource = instance.musicSources[(instance.currentMusicSource + 1) % 2];
 		if (currentSource.clip == clip || nextSource.clip == clip) return;
 		instance.StopCoroutine("CrossfadeMusicCoroutine");
@@ -157,15 +187,15 @@ public class AudioManager : MonoBehaviour {
 		float t = 0;
 		while (t < fadeDuration) {
 			float frac = t / fadeDuration;
-			sourceA.volume = (1 - frac) * musicVolume;
-			sourceB.volume = frac * musicVolume;
+			sourceA.volume = (1 - frac);
+			sourceB.volume = frac;
 			t += Time.deltaTime;
 			yield return new WaitForEndOfFrame();
 		}
 		
 		sourceA.volume = 0;
 		sourceA.Stop();
-		sourceB.volume = 1 * musicVolume;
+		sourceB.volume = 1;
 	}
 }
 }

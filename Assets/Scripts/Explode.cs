@@ -23,7 +23,7 @@ public class Explode : MonoBehaviour {
         int shardIndex = Random.Range(0, shards.Length);
         Vector3 dir = Random.insideUnitCircle * 2;
         Vector3 move = Vector3.right;
-        float size = Random.Range(0.2f, 1f);
+        float size = Random.Range(0.7f, 2f);
         if (shards.Length > 0)
         {
             Projectile projectile = shardPool.Find((p) => !p.gameObject.activeSelf);

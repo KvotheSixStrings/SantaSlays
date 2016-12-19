@@ -55,7 +55,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 0.2
   m_IsKinematic: 0
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -102,14 +102,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  lifetime: 3
+  lifetime: 6
   size: 1
   orientToVelocity: 1
   pursuitDamping: 0.1
   gunVelocityDamping: 0.1
   particles: {fileID: 0}
-  onFireAudioClipName: 
-  onHitAudioClipName: 
+  audioMixerName: SFX
+  onFireAudioClipName: Throw-Swoosh
+  onHitAudioClipName: SnowBallHit
   shakeCamera: 0
   onHitParticleSystemName: 
   onHitColor: {r: 1, g: 1, b: 1, a: 1}
@@ -143,7 +144,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300022, guid: 4be3de8a76b127445af885db87dc5142, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c7a49ce496b61f142b4030b85a5edf08, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

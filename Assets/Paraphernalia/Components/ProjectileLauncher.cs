@@ -6,15 +6,23 @@ using Paraphernalia.Extensions;
 public class ProjectileLauncher : MonoBehaviour {
 
 	public Projectile projectilePrefab;
+    public string gunName;
 	public float launchDelay = 1.5f;
 	public bool showProjectileOnReady = true;
 	public float kickbackForce = 1f;
+	public int initialPoolSize = 10;
+    public GameObject muzzleFlash;
 
 	private float launchTime;
 	private List<Projectile> projectilePool = new List<Projectile>();
 
 	void Awake () {
 		launchTime = -launchDelay;
+		for (int i = 0; i < initialPoolSize; i++) {
+			Projectile projectile = projectilePrefab.Instantiate() as Projectile;
+			projectile.gameObject.SetActive(false);
+			projectilePool.Add(projectile);
+		}
 	}
 
 	Projectile GetNextProjectile () {
@@ -42,6 +50,11 @@ public class ProjectileLauncher : MonoBehaviour {
 			launchTime = Time.time;
 			Projectile projectile = projectiles[0];
 			projectile.Fire(direction, parentVelocity);
+            if(muzzleFlash != null)
+            {
+                Debug.Log("muzzleflash");
+                muzzleFlash.SetActive(true);
+            }
 			return true;
 		}
 		return false;

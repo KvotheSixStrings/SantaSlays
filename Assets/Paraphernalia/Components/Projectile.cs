@@ -14,6 +14,7 @@ public class Projectile : MonoBehaviour {
 	[Range(0,1)] public float pursuitDamping = 0.1f;
 	[Range(0,1)] public float gunVelocityDamping = 0.1f;
 	public ParticleSystem particles;
+	public string audioMixerName = "";
 	public string onFireAudioClipName = "";
 	public string onHitAudioClipName = "";
 	public bool shakeCamera = true;
@@ -31,7 +32,6 @@ public class Projectile : MonoBehaviour {
 		StopCoroutine("LifeCycleCoroutine");
 		gameObject.SetActive(activate);
 		transform.parent = parent;
-		transform.localScale = Vector3.one;
 		transform.position = parent.position;
 		GetComponent<Rigidbody2D>().velocity = Vector3.zero;
 		Collider2D[] colliders = GetComponentsInChildren<Collider2D>();
@@ -42,7 +42,7 @@ public class Projectile : MonoBehaviour {
 
 	public void Fire (Vector3 direction, Vector3 gunVelocity = default(Vector3)) {
 		transform.parent = null;
-		AudioManager.PlayEffect(onFireAudioClipName, transform, Random.Range(0.7f, 1), Random.Range(0.95f, 1.05f));
+		AudioManager.PlayEffect(onFireAudioClipName, audioMixerName, transform, Random.Range(0.7f, 1), Random.Range(0.95f, 1.05f));
 		if (orientToVelocity) transform.right = direction;
 		gameObject.SetActive(true);
 		GetComponent<Rigidbody2D>().velocity = direction.normalized * speed + gunVelocity * (1 - gunVelocityDamping);

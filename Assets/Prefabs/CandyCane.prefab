@@ -40,7 +40,7 @@ Transform:
   m_GameObject: {fileID: 1000010598856938}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.8760403, y: 1.24, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
@@ -75,7 +75,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 0.89, y: 0.9}
+  m_Size: {x: 0.65, y: 0.35}
 --- !u!114 &114000012291732882
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -88,14 +88,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 15
-  lifetime: 3
+  lifetime: 6
   size: 1
   orientToVelocity: 1
   pursuitDamping: 0.1
   gunVelocityDamping: 0.1
   particles: {fileID: 0}
-  onFireAudioClipName: 
-  onHitAudioClipName: 
+  audioMixerName: SFX
+  onFireAudioClipName: Throw-Swoosh
+  onHitAudioClipName: CandyCain
   shakeCamera: 0
   onHitParticleSystemName: 
   onHitColor: {r: 1, g: 1, b: 1, a: 1}
@@ -159,7 +160,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300026, guid: 4be3de8a76b127445af885db87dc5142, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2f4ad84e095a1d04f88ee14da5d3bdae, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

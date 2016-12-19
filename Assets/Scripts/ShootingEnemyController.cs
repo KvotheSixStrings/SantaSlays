@@ -14,7 +14,7 @@ public class ShootingEnemyController : MonoBehaviour {
     {
         player = GameObject.FindWithTag("Player");
         body = GetComponent<Rigidbody2D>();
-        gun = GetComponent<ProjectileLauncher>();
+        gun = gameObject.GetComponentInChildren<ProjectileLauncher>();
     }
     void Update()
     {

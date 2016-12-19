@@ -8,6 +8,9 @@ public class ScoreManager : MonoBehaviour {
 
     public Text scoreText;    
     public int score = 0;
+    public Text healthText;
+    public int health;
+    private Health playerHealth;
 
     void Awake()
     {
@@ -20,10 +23,13 @@ public class ScoreManager : MonoBehaviour {
         {
             GameObject.Destroy(gameObject);
         }
+        playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
+        health = playerHealth.health;
     }
 
     void Start()
-    {
+    {        
+        SetHealthText();
         SetScoreText();
     }
 
@@ -37,7 +43,20 @@ public class ScoreManager : MonoBehaviour {
 
     void SetScoreText()
     {
-        scoreText.text = "Score\n" + score;
+        scoreText.text = "Score: " + score;
     }
-        
+
+    public static void subtractFromHealth(int amount)
+    {
+        instance.health -= amount;
+        instance.SetHealthText();
+    }
+
+
+
+    void SetHealthText()
+    {
+        healthText.text = "Health: " + health;
+    }
+
 }

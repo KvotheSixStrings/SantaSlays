@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000013310189006}
   - 212: {fileID: 212000013453589750}
-  - 114: {fileID: 114000013530860312}
   - 114: {fileID: 114000013684670346}
   - 61: {fileID: 61000013884284926}
   - 50: {fileID: 50000011774577564}
@@ -29,7 +28,7 @@ GameObject:
   - 114: {fileID: 114000012874960630}
   m_Layer: 9
   m_Name: MeleeCat
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -42,7 +41,7 @@ Transform:
   m_GameObject: {fileID: 1000010702081740}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.13, y: 1.37, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
@@ -63,7 +62,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &61000013884284926
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -75,9 +74,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.23}
   serializedVersion: 2
-  m_Size: {x: 0.89, y: 0.88}
+  m_Size: {x: 0.89, y: 0.54}
 --- !u!114 &114000011151761236
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -100,8 +99,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7e73b758409cb540a7ed4771b41ce8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 5
+  maxHealth: 3
   health: 0
+  hasShield: 0
+  powerUps:
+  - {fileID: 186666, guid: 52171f9e73b36b442928e3dc48d57686, type: 2}
+  - {fileID: 160778, guid: 663cf4c4796abdd40a4ff752ed1decb8, type: 2}
+  - {fileID: 1000012051389402, guid: d8ec5ea6d9cba4f4f9ed05c525a7d7ce, type: 2}
+  losePrompt: {fileID: 0}
 --- !u!114 &114000013171013944
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -113,27 +118,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92ebc6a60ac02844fae4e1fc9bad4f25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  speed: 3
   turnSpeed: 5
---- !u!114 &114000013530860312
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010702081740}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31839d8b31cce4d798caa4e0d9e650d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageSoundName: 
-  deathSoundName: 
-  destructionSoundName: 
-  deathParticlesName: 
-  destructionParticlesName: 
-  destructionSpawnName: 
-  maxHealth: 2
-  destructionHealth: 0
 --- !u!114 &114000013684670346
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -178,7 +164,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4be3de8a76b127445af885db87dc5142, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 54cc48ee86f2c4b4da64646d5fb62a7a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
